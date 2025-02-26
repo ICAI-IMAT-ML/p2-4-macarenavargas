@@ -108,18 +108,11 @@ class LinearRegressor:
             error = predictions - y
             # para w
            
-            grad_C_w=(2/m)*sum(error.reshape(-1, 1)*X[:,1:])
+            gradient= (2/m) * np.dot(error, X)
          
           
-
-            # para b
-            grad_C_b=(2/m)*sum(error) # como si lo estivieras multiplicando por un array de 1s
-
-            # TODO: Write the gradient values and the updates for the paramenters
-            gradient = (grad_C_w,grad_C_b)
-
-            self.intercept -= learning_rate* gradient[1]
-            self.coefficients -= learning_rate* gradient[0]
+            self.intercept -= learning_rate* gradient[:1]
+            self.coefficients -= learning_rate* gradient[1:]
 
             # TODO: Calculate and print the loss every 10 epochs
             if epoch % 1000 == 0:
